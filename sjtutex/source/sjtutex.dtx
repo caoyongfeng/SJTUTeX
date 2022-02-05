@@ -379,6 +379,27 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_vspace:N,\@@_vspace:n,\@@_vspace:c}
+% 类似 \LaTeXe{} 中的 \tn{vspace*}。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_vspace:N #1
+  {
+    \dim_set_eq:NN \l_@@_tmp_dim \prevdepth
+    \hrule height \c_zero_dim
+    \nobreak
+    \skip_vertical:N #1
+    \skip_vertical:N \c_zero_skip
+    \dim_set_eq:NN \prevdepth \l_@@_tmp_dim
+  }
+\cs_new_protected:Npn \@@_vspace:n #1
+  {
+    \skip_set:Nn \l_@@_tmp_skip {#1}
+    \@@_vspace:N \l_@@_tmp_skip
+  }
+\cs_generate_variant:Nn \@@_vspace:N { c }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_define_name:nn,\@@_define_name:nnn}
 % 用来定义默认名称的辅助函数。
 %    \begin{macrocode}
@@ -1976,6 +1997,90 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{标题页}
+%
+%    \begin{macrocode}
+\tl_new:N \l_@@_compon_pl_format_tl
+\tl_new:N \l_@@_compon_pl_content_tl
+\skip_new:N \l_@@_compon_pl_bottom_skip
+\DeclareObjectType { sjtu / component } { 0 }
+\DeclareTemplateInterface { sjtu / component } { plain } { 0 }
+  {
+    format      : tokenlist ,
+    content     : tokenlist ,
+    bottom-skip : skip ,
+    align       : choice { left, right, center, normal } = normal
+  }
+\DeclareTemplateCode { sjtu / component } { plain } { 0 }
+  {
+    format      = \l_@@_compon_pl_format_tl ,
+    content     = \l_@@_compon_pl_content_tl ,
+    bottom-skip = \l_@@_compon_pl_bottom_skip ,
+    align       =
+      {
+        left    =
+          \cs_set_protected:Npn \l_@@_compon_pl_align:n #1
+            {
+              \group_begin:
+                \flushleft #1 \endflushleft
+              \group_end:
+            },
+        right   =
+          \cs_set_protected:Npn \l_@@_compon_pl_align:n #1
+            {
+              \group_begin:
+                \flushright #1 \endflushright
+              \group_end:
+            },
+        center  =
+          \cs_set_protected:Npn \l_@@_compon_pl_align:n #1
+            {
+              \group_begin:
+                \center #1 \endcenter
+              \group_end:
+            },
+        normal  =
+          \cs_set_protected:Npn \l_@@_compon_pl_align:n #1
+            { \group_begin: #1 \group_end: },
+      }
+  }
+  {
+    \AssignTemplateKeys
+    \l_@@_compon_pl_align:n
+      {
+        \l_@@_compon_pl_format_tl
+        \l_@@_compon_pl_content_tl
+        \par
+      }
+    \@@_vspace:N \l_@@_compon_pl_bottom_skip
+  }
+\cs_new_protected:Npn \@@_compon_pl:n #1
+  { \UseTemplate { sjtu / component } { plain } {#1} }
+\cs_new_protected:Npn \@@_make_titlepage_zh:
+  {
+    \cleardoublepage
+    \thispagestyle { empty }
+    \@@_compon_pl:n
+      {
+        format      = \zihao { -2 } ,
+        content     = \c_@@_name_subject_full_zh_tl ,
+        bottom-skip = 0 pt plus 4 fill ,
+        align       = center
+      }
+    \@@_compon_pl:n
+      {
+        format      = \zihao { 2 } \bfseries \heiti ,
+        content     = \l_@@_info_display_title_zh_tl ,
+        bottom-skip = 0 pt plus 5 fill ,
+        align       = center
+      }
+  }
+\RenewDocumentCommand \maketitle { }
+  {
+    \@@_make_titlepage_zh:
+  }
+%    \end{macrocode}
 %
 % \subsection{摘要}
 %
