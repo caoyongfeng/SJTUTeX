@@ -217,7 +217,7 @@ The Current Maintainer of this work is Alexara Wu.
 %
 % \title{\bfseries\color{sjtublue}\sjtuthesis：上海交通大学学位论文模板}
 % \author{\href{https://sjtug.org/}{SJTUG}}
-% \date{\filedate\qquad v\fileversion}
+% \date{\today\qquad v\version}
 %
 % \maketitle
 % \thispagestyle{empty}
@@ -275,6 +275,7 @@ The Current Maintainer of this work is Alexara Wu.
 % 2012 年 5 月模板开始在 GitHub 上管理和更新，2018 年 1 月项目转移至 SJTUG 名
 % 下。2019 年 6 月 Alexara Wu 重构了整个宏包的代码，并使用 doc 和 DocStrip 工具
 % 进行代码的管理，升级版本号为 1.0。
+% 2021 年 5 月升级版本号为 1.1，支持 \LuaLaTeX{} 的编译。
 %
 % \note{模板的作用在于减少论文写作过程中格式调整的时间，前提是遵守模板的用法，否
 %   则即便用了\sjtuthesis 也难以保证输出的论文符合学校规范。}
@@ -346,7 +347,7 @@ The Current Maintainer of this work is Alexara Wu.
 % \end{latex}
 %
 % 按照 \ref{ssec:compile} 小节中的方式编译该文档，您应当得到一篇 5 页的文章。
-% 当然，这篇文章的绝大 部分都是空白的。
+% 当然，这篇文章的绝大部分都是空白的。
 %
 % \subsection{终端编译方式}
 % \label{ssec:compile}
@@ -377,7 +378,7 @@ The Current Maintainer of this work is Alexara Wu.
 %
 % \begin{shell}
 % # 一条命令就够了！
-% latexmk -xelatex thesis
+% latexmk -xelatex main
 % \end{shell}
 %
 % \subsection{模板选项}
@@ -851,7 +852,7 @@ The Current Maintainer of this work is Alexara Wu.
 %
 % \DescribeFunction{\footnote}
 %   \begin{sjtusyntax}[morekeywords={\footnote}]
-%     \footnote(*\oarg{脚注文字}*)
+%     \footnote(*\marg{脚注文字}*)
 %   \end{sjtusyntax}
 % 插入脚注。编号采用中文字体的带圈数字，只支持 1 到 10 号，请保证每页脚注
 % 不超过 10 个。
@@ -874,7 +875,7 @@ The Current Maintainer of this work is Alexara Wu.
 % \subsubsection{后文部分}
 %
 % \DescribeFunction{\backmatter}
-% 声明后文部分开始。 后文部分包含参考文献、致谢等。
+% 声明后文部分开始。 后文部分包含致谢等。
 %
 % \DescribeFunction{acknowledgements}
 %   \begin{sjtusyntax}[emph={[2]acknowledgements}]
