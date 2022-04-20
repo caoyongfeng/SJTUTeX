@@ -886,17 +886,27 @@ The Current Maintainer of this work is Alexara Wu.
 % 致谢环境。盲审模式下致谢将被隐去。
 %
 % \DescribeFunction{achievements}
-% \DescribeFunction{achievements*}
-%   \vspace{-1ex}
-%   \begin{sjtusyntax}[emph={[2]achievements,achievements*}]
+%   \begin{sjtusyntax}[emph={[2]achievements}]
 %     \begin{achievements}
-%       \item (*\meta{获得的科研成果}*)
+%       (*\meta{获得的科研成果}*)
 %     \end{achievements}
-%     \begin{achievements*}
-%       \item (*\meta{获得的科研成果（隐去姓名）}*)
-%     \end{achievements*}
 %   \end{sjtusyntax}
-% 科研成果环境。普通模式下显示不带星号的版本中的内容，
+% 科研成果环境，内部请采用下面的附录用文献列表环境。
+% 你可以在该环境中使用带星号的节次命令以分隔不同的类型的内容
+%（比如学术论文、专利等）。
+%
+% \DescribeFunction{bibliolist}
+% \DescribeFunction{bibliolist*}
+%   \vspace{-1ex}
+%   \begin{sjtusyntax}[emph={[2]bibliolist,bibliolist*}]
+%      \begin{bibliolist}(*\marg{最长条目编号}*)
+%         \item (*\meta{文献条目}*)
+%      \end{bibliolist}
+%      \begin{bibliolist*}(*\marg{最长条目编号}*)
+%         \item (*\meta{文献条目（隐去姓名）}*)
+%      \end{bibliolist*}
+%   \end{sjtusyntax}
+% 附录用文献环境，普通模式下显示不带星号的版本中的内容，
 % 盲审模式下显示带星号的版本中的内容。
 %
 % \DescribeFunction{resume}
